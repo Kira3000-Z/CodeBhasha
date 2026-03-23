@@ -1,3 +1,13 @@
-socho Yeh mera pehla CodeBhasha comment hai
+socho Multiplication Table Generator
 saaf
-dikhao("Namaste Kira!")
+
+mano n = pucho("Kis number ka pahada chahiye? ")
+# Convert input string to integer
+mano num = int(n)
+
+dikhao("Pahada of", num, "hai:")
+
+socho Loop starts from 1 to 11 (to include 10)
+phir i mein range_tak(1, 11):
+    mano result = num guna i
+    dikhao(num, "x", i, "=", result)
