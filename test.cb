@@ -1,9 +1,16 @@
-mano count = 5
-
-jabtak count > 0:
-    dikhao("Ginti:", count)
-    mano count = count ghatao 1
-
-dikhao("Blast off!")
 saaf
-dikhao("Screen saaf ho gayi aur ginti khatam!")
+kaam swagat(n):
+    dikhao("Namaste,", n)
+
+mano naam = pucho("Aapka naam kya hai? ")
+swagat(naam)
+
+mano saal = pucho("Aapki umar kya hai? ")
+# Convert string input to integer for math
+mano umar = int(saal) 
+
+agar umar >= 18:
+    dikhao("Aap ek adult hain!")
+warna:
+    mano baki = 18 ghatao umar
+    dikhao("Aapko adult banne mein", baki, "saal hain.")
