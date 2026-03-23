@@ -1,13 +1,19 @@
-socho Multiplication Table Generator
+socho Login System Test
 saaf
 
-mano n = pucho("Kis number ka pahada chahiye? ")
-# Convert input string to integer
-mano num = int(n)
+mano admin_naam = "Kira"
+mano pin_sahi = 1234
 
-dikhao("Pahada of", num, "hai:")
+mano input_naam = pucho("Username dalo: ")
+mano input_pin = int(pucho("PIN dalo: "))
 
-socho Loop starts from 1 to 11 (to include 10)
-phir i mein range_tak(1, 11):
-    mano result = num guna i
-    dikhao(num, "x", i, "=", result)
+socho Check logic using 'aur' (and)
+agar input_naam == admin_naam aur input_pin == pin_sahi:
+    mano login_status = sahi
+    dikhao("Login Sahi Hai!")
+warna:
+    mano login_status = galat
+    dikhao("Ghalat Details! Access Denied.")
+
+agar login_status == sahi:
+    dikhao("Welcome to the Admin Dashboard.")
