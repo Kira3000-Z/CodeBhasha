@@ -1,0 +1,13 @@
+saaf
+mano umar = 20
+dikhao("Meri umar hai:", umar)
+
+agar umar > 18 aur umar < 60:
+    dikhao("Aap adult hain.")
+nahito umar >= 60:
+    dikhao("Aap senior citizen hain.")
+warna:
+    dikhao("Aap abhi bachhe hain.")
+
+mano saal_baad = umar jodo 10
+dikhao("10 saal baad aapki umar hogi:", saal_baad)
