@@ -1,0 +1,2 @@
+Player: Kira
+Score: 5

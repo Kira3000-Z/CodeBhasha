@@ -25,4 +25,4 @@ def run_code_bhasha(file_path):
         traceback.print_exc()
 
 if __name__ == "__main__":
-    run_code_bhasha("test.cb")
+    run_code_bhasha("game.cb")

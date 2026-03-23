@@ -48,12 +48,18 @@ KEYWORDS = {
     # Comments
     "socho": "#",
 
-    # time
+    # Time
     "vakt": "import time",
     "so": "time.sleep",
     "abhi": "time.strftime",
 
-    # random module
+    # Random module
     "shayad": "import random",
     "chunno": "random.randint",
+
+    # File Keywords
+    "kholo": "open",
+    "likho": "write",
+    "padho": "read",
+    "band": "close",
 }

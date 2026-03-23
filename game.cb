@@ -1,0 +1,29 @@
+shayad
+saaf
+socho --- Number Guessing Game v2.0 ---
+
+mano secret = chunno(1, 100)
+mano koshish = 0
+mano jeeta = galat
+
+dikhao("Maine 1 se 100 ke beech ek number socha hai!")
+
+jabtak jeeta == galat:
+    mano guess = int(pucho("Aapka guess kya hai? "))
+    mano koshish = koshish jodo 1
+    
+    agar guess == secret:
+        mano jeeta = sahi
+    nahito guess < secret:
+        dikhao("Thoda bada (Higher)!")
+    warna:
+        dikhao("Thoda chota (Lower)!")
+
+dikhao("Sahi jawab! Tries: ", koshish)
+
+socho --- Save the Score ---
+mano file = kholo("highscore.txt", "a")
+file.likho("Kira Score: " jodo str(koshish) jodo " tries\n")
+file.band()
+
+dikhao("Score saved in highscore.txt!")
