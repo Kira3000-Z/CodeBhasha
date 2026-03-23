@@ -2,18 +2,16 @@ import re
 from keywords import KEYWORDS
 
 def translate_to_python(hinglish_code):
-    # STEP 1: Global Sanitization
-    # Replaces Non-Breaking Spaces (\xA0) and Tabs with standard ASCII spaces
-    clean_code = hinglish_code.replace('\xA0', ' ').replace('\t', '    ')
-    
-    # Prefix for terminal clearing support
+    # 1. Add necessary imports for the generated Python environment
     prefix = "import os\n"
+    
+    # 2. Global Sanitization: Kill Non-Breaking Spaces (\xA0) and Tabs
+    clean_code = hinglish_code.replace('\xA0', ' ').replace('\t', '    ')
     
     lines = clean_code.splitlines()
     translated_lines = []
     
-    # Sort keywords by length descending to prevent partial matches 
-    # (e.g., matching 'agar' before 'agar-agar')
+    # Sort keywords by length descending to match 'agar-agar' before 'agar'
     sorted_keys = sorted(KEYWORDS.items(), key=lambda x: len(x[0]), reverse=True)
     
     for line in lines:
@@ -21,30 +19,29 @@ def translate_to_python(hinglish_code):
             translated_lines.append("")
             continue
 
-        # STEP 2: Extract original indentation
+        # 3. Extract original indentation
         indent_match = re.match(r"^\s*", line)
         indent = indent_match.group() if indent_match else ""
         content = line.strip()
 
-        # STEP 3: Smart Replacement
+        # 4. Smart Replacement (String-Aware)
         for hinglish, python in sorted_keys:
-            # Check if the keyword is a regex pattern (like mano\s+)
+            # If it's a regex pattern like mano\s+, handle it directly
             if "\\" in hinglish or "+" in hinglish:
                 content = re.sub(hinglish, python, content)
             else:
-                # Use word boundaries (\b) for standard keywords to avoid 
-                # replacing 'saaf' inside a word like 'saaf-safai'
-                content = re.sub(r'\b' + hinglish + r'\b', python, content)
+                # Regex magic: Matches 'hinglish' only if followed by an even 
+                # number of quotes (meaning it's outside a string literal)
+                pattern = r'\b' + hinglish + r'\b(?=(?:[^"]*"[^"]*")*[^"]*$)'
+                content = re.sub(pattern, python, content)
 
-        # STEP 4: Indentation Normalization
-        # If the line is NOT part of a block (doesn't follow a colon),
-        # we strip the leading space left over by keywords like 'mano'
+        # 5. Indentation Normalization
+        # If the line doesn't follow a colon, we ensure no "ghost spaces" remain
         if not (translated_lines and translated_lines[-1].strip().endswith(':')):
-            # If the user didn't manually indent 4 spaces, force it to the margin
+            # If the indent is small (likely a leftover from 'mano '), force to margin
             if len(indent) < 4:
                 indent = ""
 
         translated_lines.append(indent + content)
         
-    # Combine prefix and translated body
     return prefix + "\n".join(translated_lines)
