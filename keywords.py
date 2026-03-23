@@ -44,4 +44,7 @@ KEYWORDS = {
 
     # Others
     "saaf": "os.system('cls' if os.name == 'nt' else 'clear')",
+
+    # Comments
+    "socho": "#",
 }
