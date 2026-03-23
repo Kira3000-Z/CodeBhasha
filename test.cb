@@ -1,15 +1,22 @@
-vakt
-socho Digital Clock in CodeBhasha
+shayad
 saaf
+socho Number Guessing Game in CodeBhasha
 
-jabtak sahi:
-    saaf
-    socho Format: Hour:Minute:Second
-    mano samay = abhi("%H:%M:%S")
+mano secret = chunno(1, 100)
+mano koshish = 0
+mano jeeta = galat
+
+dikhao("Maine 1 se 100 ke beech ek number socha hai!")
+
+jabtak jeeta == galat:
+    mano guess = int(pucho("Aapka guess kya hai? "))
+    mano koshish = koshish jodo 1
     
-    dikhao("------------------")
-    dikhao("|  ", samay, "  |")
-    dikhao("------------------")
-    dikhao("Ctrl+C dabao rokne ke liye")
-    
-    so(1)
+    agar guess == secret:
+        mano jeeta = sahi
+    nahito guess < secret:  # <--- Changed from agar-agar to nahito
+        dikhao("Nahi! Thoda bada number socho.")
+    warna:
+        dikhao("Nahi! Thoda chota number socho.")
+
+dikhao("Shabaash! Aapne", koshish, "baar mein sahi guess kiya!")

@@ -48,8 +48,12 @@ KEYWORDS = {
     # Comments
     "socho": "#",
 
-    #time
+    # time
     "vakt": "import time",
     "so": "time.sleep",
     "abhi": "time.strftime",
+
+    # random module
+    "shayad": "import random",
+    "chunno": "random.randint",
 }
