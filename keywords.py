@@ -47,4 +47,9 @@ KEYWORDS = {
 
     # Comments
     "socho": "#",
+
+    #time
+    "vakt": "import time",
+    "so": "time.sleep",
+    "abhi": "time.strftime",
 }

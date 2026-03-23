@@ -1,15 +1,15 @@
-socho Shopping List Test
+vakt
+socho Digital Clock in CodeBhasha
 saaf
 
-mano saaman = ["Chawal", "Dal", "Aata", "Chini"]
-dikhao("Mere paas ye saaman hai:")
-
-phir item mein saaman:
-    dikhao("- ", item)
-
-mano naya_saaman = pucho("Aur kya lena hai? ")
-saaman.append(naya_saaman)
-
-dikhao("Updated List:")
-phir item mein saaman:
-    dikhao("- ", item)
+jabtak sahi:
+    saaf
+    socho Format: Hour:Minute:Second
+    mano samay = abhi("%H:%M:%S")
+    
+    dikhao("------------------")
+    dikhao("|  ", samay, "  |")
+    dikhao("------------------")
+    dikhao("Ctrl+C dabao rokne ke liye")
+    
+    so(1)
