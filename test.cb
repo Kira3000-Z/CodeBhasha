@@ -1,19 +1,15 @@
-socho Login System Test
+socho Shopping List Test
 saaf
 
-mano admin_naam = "Kira"
-mano pin_sahi = 1234
+mano saaman = ["Chawal", "Dal", "Aata", "Chini"]
+dikhao("Mere paas ye saaman hai:")
 
-mano input_naam = pucho("Username dalo: ")
-mano input_pin = int(pucho("PIN dalo: "))
+phir item mein saaman:
+    dikhao("- ", item)
 
-socho Check logic using 'aur' (and)
-agar input_naam == admin_naam aur input_pin == pin_sahi:
-    mano login_status = sahi
-    dikhao("Login Sahi Hai!")
-warna:
-    mano login_status = galat
-    dikhao("Ghalat Details! Access Denied.")
+mano naya_saaman = pucho("Aur kya lena hai? ")
+saaman.append(naya_saaman)
 
-agar login_status == sahi:
-    dikhao("Welcome to the Admin Dashboard.")
+dikhao("Updated List:")
+phir item mein saaman:
+    dikhao("- ", item)
