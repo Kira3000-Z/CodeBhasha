@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeBhasha | Professional IDE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code:wght@400;500&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; background-color: #0d1117; }
+        #editor, #python-viewer { height: 100%; font-family: 'Fira Code', monospace; }
+        .ace_gutter { background: #0d1117 !important; color: #4b5563 !important; }
+        .terminal-glow { box-shadow: inset 0 0 20px rgba(74, 222, 128, 0.05); }
+    </style>
+</head>
+<body class="text-gray-300">
+
+    <nav class="flex items-center justify-between px-6 py-3 bg-[#161b22] border-b border-gray-800 shadow-xl">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-blue-900/20">CB</div>
+            <h1 class="text-xl font-semibold tracking-tight text-white">CodeBhasha <span class="text-blue-500 font-normal">IDE</span></h1>
+        </div>
+        <div class="flex space-x-4">
+            <button onclick="runCode()" class="flex items-center px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition-all font-medium active:scale-95">
+                <span class="mr-2">▶</span> Chalao (Run)
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex h-[calc(100vh-64px)] overflow-hidden">
+        
+        <div class="w-1/2 flex flex-col border-r border-gray-800">
+            <div class="px-4 py-2 bg-[#0d1117] text-xs font-semibold uppercase tracking-widest text-gray-500 border-b border-gray-800">
+                Hinglish Source
+            </div>
+            <div id="editor">socho CodeBhasha v1.0
+saaf
+kaam swagat(n):
+    dikhao("Namaste,", n)
+
+mano naam = "Kira"
+swagat(naam)</div>
+        </div>
+
+        <div class="w-1/2 flex flex-col">
+            
+            <div class="h-1/3 flex flex-col border-b border-gray-800">
+                <div class="px-4 py-2 bg-[#0d1117] text-xs font-semibold uppercase tracking-widest text-blue-500 border-b border-gray-800">
+                    Transpiled Python
+                </div>
+                <div id="python-viewer"></div>
+            </div>
+
+            <div class="h-2/3 flex flex-col bg-black terminal-glow">
+                <div class="px-4 py-2 bg-black text-xs font-semibold uppercase tracking-widest text-green-500 border-b border-gray-800 flex justify-between">
+                    <span>Terminal</span>
+                    <span id="status" class="text-gray-600 italic lowercase">Idle</span>
+                </div>
+                <pre id="output" class="p-6 font-mono text-green-400 text-sm overflow-auto leading-relaxed whitespace-pre-wrap"></pre>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Setup Editors
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/tomorrow_night_bright");
+        editor.session.setMode("ace/mode/python"); // Closest highlight
+        editor.setShowPrintMargin(false);
+
+        var pythonViewer = ace.edit("python-viewer");
+        pythonViewer.setTheme("ace/theme/tomorrow_night_eighties");
+        pythonViewer.session.setMode("ace/mode/python");
+        pythonViewer.setReadOnly(true);
+        pythonViewer.setShowPrintMargin(false);
+        pythonViewer.renderer.setShowGutter(false);
+
+        async function runCode() {
+            const status = document.getElementById('status');
+            const output = document.getElementById('output');
+            
+            status.innerText = "Running...";
+            status.classList.add("text-blue-500");
+            
+            try {
+                const response = await fetch('/run', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({code: editor.getValue()})
+                });
+                const data = await response.json();
+                
+                output.innerText = data.output || "> Program executed successfully (no output)";
+                pythonViewer.setValue(data.python, -1);
+                status.innerText = "Success";
+                status.classList.replace("text-blue-500", "text-green-500");
+            } catch (err) {
+                output.innerText = "Error: Could not connect to backend.";
+                status.innerText = "Failed";
+                status.classList.replace("text-blue-500", "text-red-500");
+            }
+        }
+    </script>
+</body>
+</html>
